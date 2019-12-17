@@ -1,5 +1,5 @@
 # Pong in Python
-This is a pong like game made with unity
+This is a pong like game made with python
 ![Example](/Images/ExampleImage.gif) <br/>
 
 ## FEATURES
