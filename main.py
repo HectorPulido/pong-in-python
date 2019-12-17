@@ -18,7 +18,7 @@ def fillRoom():
     for _ in range(0, room_height):
         r = []
         for _ in range(0, room_width):
-            r.append("-")
+            r.append(" ")
         room.append(r)
 
 def printRoom():
@@ -58,55 +58,60 @@ def checkCollision(x, y, width, height):
                 return True
     return False
 
-fillRoom()
-
 start = time.clock()
 
+
+#Datos iniciales
 direction1 = 0
-speed1 = 8
+speed1 = 10
 position1 = 2
 
-direction2 = 0
-speed2 = 8
+speed2 = 10
 position2 = 2
 
 positionBallX = room_width / 2
 positionBallY = room_height / 2
-speedBallX = 5
-speedBallY = 5
+speedBallX = 8
+speedBallY = 8
 
 while True:
     end = time.clock()
     diff = end - start
     start = end
 
+    fillRoom()
+
     #Fisica de controles
     if keyboard.is_pressed('w'):
-        direction2 = -1
         direction1 = -1
     else:
         if keyboard.is_pressed('s'):
-            direction2 = 1
             direction1 = 1
         else:
-            direction2 = 0
             direction1 = 0
+    if keyboard.is_pressed('q'):
+        quit()
 
     #Borrado de la room
-    fillRoom()
-
-    #Fisicas
     position1 += speed1 * diff * direction1
-    drawRectangle(3, int(position1), 2, 10)
+    drawRectangle(3, int(position1), 2, 5)
+
+    #AI, El jugador va hacia la pelota
+    direction2 = positionBallY - position2
+
+    if direction2 < -1:
+        direction2 = -1
+    
+    if direction2 > 1:
+        direction2 = 1
 
     position2 += speed2 * diff * direction2
-    drawRectangle(room_width - 6, int(position2), 2, 10)
+    drawRectangle(room_width - 6, int(position2), 2, 5)
 
     positionBallX += speedBallX * diff
     positionBallY += speedBallY * diff
 
     #Fisica de la pelota
-
     if positionBallX < 0 or positionBallX >= room_width:
         speedBallX *= -1
 
