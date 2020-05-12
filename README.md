@@ -1,5 +1,5 @@
 # Pong in Python
-This is a pong like game made with python
+This is a pong like game made with python <br/>
 ![Example](/Images/ExampleImage.gif) <br/>
 
 ## FEATURES
