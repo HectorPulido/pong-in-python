@@ -7,11 +7,13 @@ room_width = 100
 room_height = 40
 room = []
 
+
 def clear():
-    if platform.system() == 'Windows':
-        os.system('cls')
-    elif platform.system() == 'Linux':
-        os.system('clear')
+    if platform.system() == "Windows":
+        os.system("cls")
+    elif platform.system() == "Linux":
+        os.system("clear")
+
 
 def fillRoom():
     room.clear()
@@ -21,12 +23,14 @@ def fillRoom():
             r.append(" ")
         room.append(r)
 
+
 def printRoom():
     for i in room:
         toPrint = ""
         for j in i:
             toPrint += j
         print(toPrint)
+
 
 def drawRectangle(x, y, width, height):
     for j in range(x, x + width):
@@ -41,6 +45,7 @@ def drawRectangle(x, y, width, height):
                 continue
 
             room[i][j] = "X"
+
 
 def checkCollision(x, y, width, height):
     for j in range(x, x + width):
@@ -58,10 +63,11 @@ def checkCollision(x, y, width, height):
                 return True
     return False
 
-start = time.clock()
+
+start = time.perf_counter()
 
 
-#Datos iniciales
+# Datos iniciales
 direction1 = 0
 speed1 = 10
 position1 = 2
@@ -75,33 +81,33 @@ speedBallX = 8
 speedBallY = 8
 
 while True:
-    end = time.clock()
+    end = time.perf_counter()
     diff = end - start
     start = end
 
     fillRoom()
 
-    #Fisica de controles
-    if keyboard.is_pressed('w'):
+    # Fisica de controles
+    if keyboard.is_pressed("w"):
         direction1 = -1
     else:
-        if keyboard.is_pressed('s'):
+        if keyboard.is_pressed("s"):
             direction1 = 1
         else:
             direction1 = 0
-    if keyboard.is_pressed('q'):
+    if keyboard.is_pressed("q"):
         quit()
 
-    #Borrado de la room
+    # Borrado de la room
     position1 += speed1 * diff * direction1
     drawRectangle(3, int(position1), 2, 5)
 
-    #AI, El jugador va hacia la pelota
+    # AI, El jugador va hacia la pelota
     direction2 = positionBallY - position2
 
     if direction2 < -1:
         direction2 = -1
-    
+
     if direction2 > 1:
         direction2 = 1
 
@@ -111,7 +117,7 @@ while True:
     positionBallX += speedBallX * diff
     positionBallY += speedBallY * diff
 
-    #Fisica de la pelota
+    # Fisica de la pelota
     if positionBallX < 0 or positionBallX >= room_width:
         speedBallX *= -1
 
@@ -123,8 +129,6 @@ while True:
 
     drawRectangle(int(positionBallX), int(positionBallY), 3, 3)
 
-    #Render de la room
+    # Render de la room
     clear()
     printRoom()
-
-
